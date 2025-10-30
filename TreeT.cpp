@@ -19,7 +19,7 @@ template <class T>
 void TreeT<T>::Add(T value)
 {
     Node *newNode = new Node;
-    newNode->value = value;
+    newNode->value = value;\
 
     if (root == nullptr)
     {
@@ -38,7 +38,7 @@ void TreeT<T>::Add(T value)
             currN = currN->left;
         }
         else if (value > currN->value)
-        {
+         {
             currN = currN->right;
         }
         else
@@ -49,11 +49,11 @@ void TreeT<T>::Add(T value)
     }
     if (value < prevN->value)
     {
-        prevN->left = new Node;
+        prevN->left = newNode;
     }
     else
     {
-        prevN->right = new Node;
+        prevN->right = newNode;
     }
     numNodes++;
 }
@@ -67,7 +67,7 @@ template <class T>
 bool TreeT<T>::Contains(T value)
 {
     Node *currN = root;
-=    while (currN != nullptr)
+    while (currN != nullptr)
     {
         if (value < currN->value)
         {
@@ -79,7 +79,7 @@ bool TreeT<T>::Contains(T value)
         }
         else
         {
-=            return true; // Found it
+            return true; // Found it
         }
     }
     // Just finished the loop without finding the value
