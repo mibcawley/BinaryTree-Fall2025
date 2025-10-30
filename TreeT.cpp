@@ -61,6 +61,13 @@ void TreeT<T>::Add(T value)
 template <class T>
 void TreeT<T>::Remove(T value)
 {
+    // Remove is a grabber function for RemoveHelper
+    RemoveHelper(root, value);
+}
+
+template <class T>
+void TreeT<T>::RemoveHelper(Node*& subtree, T value)
+{
 }
 
 template <class T>
@@ -108,10 +115,7 @@ void TreeT<T>::DestroyTree(Node* node)
 {
 }
 
-template <class T>
-void TreeT<T>::RemoveHelper(Node*& subtree, T value)
-{
-}
+
 
 template <class T>
 void TreeT<T>::DeleteNode(Node*& subtree)
