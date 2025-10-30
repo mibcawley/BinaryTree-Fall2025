@@ -62,12 +62,51 @@ template <class T>
 void TreeT<T>::Remove(T value)
 {
     // Remove is a grabber function for RemoveHelper
-    RemoveHelper(root, value);
+    root =RemoveHelper(root, value);
 }
 
 template <class T>
-void TreeT<T>::RemoveHelper(Node*& subtree, T value)
+Node* TreeT<T>::RemoveHelper(Node*& subtree, T value)
 {
+    // Base Case
+    if (subtree == nullptr)
+    {
+        return subtree;
+    }
+    if (value < subtree->value)
+    {
+        subtree  = RemoveHelper(subtree->left, value);
+    }
+    else if (value > subtree->value)
+    {
+        subtree = RemoveHelper(subtree->right, value);
+    }
+    else
+    {
+        if (subtree->left == nullptr && subtree->right == nullptr)
+        {
+            delete subtree;
+        }
+        else if (subtree->left != nullptr)
+        {
+            Node* tmp = subtree->right;
+            delete subtree;
+            return tmp;
+        }
+        else if (subtree->right != nullptr)
+        {
+            Node* tmp = subtree->left;
+            delete subtree;
+            return tmp;
+        }
+        else
+        {
+            T data;
+            GetPredecessor(subtree->left, data);
+            subtree->value = data;
+            subtree->right = RemoveHelper(subtree->left, data);
+        }
+    }
 }
 
 template <class T>
