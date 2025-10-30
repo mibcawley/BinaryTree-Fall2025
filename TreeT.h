@@ -45,14 +45,14 @@ private:
     void DestroyTree(Node* node);
 
     // Used for Node removal
-    Node* RemoveHelper(Node*& subtree, T value);
+    void RemoveHelper(Node*& subtree, T value);
     void DeleteNode(Node*& subtree);
     void GetPredecessor(Node* curr, T& value);
 
     void CopyHelper(Node*& thisTree, Node* otherTree);
 
     // Used for iterator
-    queue<T> iterArr;     // queue used for the iterator
+    queue<T> iterQue;     // queue used for the iterator
     void PlacePreOrder(Node* node);
     void PlacePostOrder(Node* node);
     void PlaceInOrder(Node* node);

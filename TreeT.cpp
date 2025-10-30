@@ -66,47 +66,49 @@ void TreeT<T>::Remove(T value)
 }
 
 template <class T>
-Node* TreeT<T>::RemoveHelper(Node*& subtree, T value)
-{
-    // Base Case
-    if (subtree == nullptr)
-    {
-        return subtree;
-    }
-    if (value < subtree->value)
-    {
-        subtree  = RemoveHelper(subtree->left, value);
-    }
-    else if (value > subtree->value)
-    {
-        subtree = RemoveHelper(subtree->right, value);
-    }
-    else
-    {
-        if (subtree->left == nullptr && subtree->right == nullptr)
-        {
-            delete subtree;
-        }
-        else if (subtree->left != nullptr)
-        {
-            Node* tmp = subtree->right;
-            delete subtree;
-            return tmp;
-        }
-        else if (subtree->right != nullptr)
-        {
-            Node* tmp = subtree->left;
-            delete subtree;
-            return tmp;
-        }
-        else
-        {
-            T data;
-            GetPredecessor(subtree->left, data);
-            subtree->value = data;
-            subtree->right = RemoveHelper(subtree->left, data);
-        }
-    }
+// Node* TreeT<T>::RemoveHelper(Node*& subtree, T value)
+void TreeT<T>::RemoveHelper(Node*& subtree, T value){
+
+// {
+//     // Base Case
+//     if (subtree == nullptr)
+//     {
+//         return subtree;
+//     }
+//     if (value < subtree->value)
+//     {
+//         subtree  = RemoveHelper(subtree->left, value);
+//     }
+//     else if (value > subtree->value)
+//     {
+//         subtree = RemoveHelper(subtree->right, value);
+//     }
+//     else
+//     {
+//         if (subtree->left == nullptr && subtree->right == nullptr)
+//         {
+//             delete subtree;
+//         }
+//         else if (subtree->left != nullptr)
+//         {
+//             Node* tmp = subtree->right;
+//             delete subtree;
+//             return tmp;
+//         }
+//         else if (subtree->right != nullptr)
+//         {
+//             Node* tmp = subtree->left;
+//             delete subtree;
+//             return tmp;
+//         }
+//         else
+//         {
+//             T data;
+//             GetPredecessor(subtree->left, data);
+//             subtree->value = data;
+//             subtree->right = RemoveHelper(subtree->left, data);
+//         }
+//     }
 }
 
 template <class T>
@@ -142,11 +144,19 @@ int TreeT<T>::Size()
 template <class T>
 void TreeT<T>::ResetIterator(Order traverseOrder)
 {
+    if (traverseOrder == IN_ORDER)
+    {
+        PlaceInOrder(root);
+
+    }
 }
 
 template <class T>
 T TreeT<T>::GetNextItem()
 {
+    T nextItem = iterQue.front(); // front value of queue
+    iterQue.pop();
+    return nextItem;
 }
 
 template <class T>
@@ -174,14 +184,24 @@ void TreeT<T>::CopyHelper(Node*& thisTree, Node* otherTree)
 template <class T>
 void TreeT<T>::PlacePreOrder(Node* node)
 {
+
 }
 
 template <class T>
 void TreeT<T>::PlacePostOrder(Node* node)
 {
+
 }
 
 template <class T>
 void TreeT<T>::PlaceInOrder(Node* node)
 {
+    if (node == nullptr)
+    {
+        return;
+    }
+    PlaceInOrder(node->left); // Put the left subtree in queue
+    iterQue.push(node->value); // Put the value in the queue
+    PlaceInOrder(node->right); // Put the right subtree in the queue
+
 }
