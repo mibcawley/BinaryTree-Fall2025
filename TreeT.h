@@ -17,6 +17,7 @@ template<class T>
 class TreeT {
 public:
     TreeT();
+    TreeT(const TreeT& otherTree);
     ~TreeT();
 
     TreeT& operator=(const TreeT& otherTree);

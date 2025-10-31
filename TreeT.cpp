@@ -6,12 +6,43 @@ TreeT<T>::TreeT()
 }
 
 template <class T>
-TreeT<T>::~TreeT()
+TreeT<T>::TreeT(const TreeT& otherTree)
 {
+    numNodes = otherTree.numNodes;
+    CopyHelper(root, otherTree.root);
 }
 
 template <class T>
 TreeT<T>& TreeT<T>::operator=(const TreeT& otherTree)
+{
+    // Check to make sure we are not setting treeA = TreeA
+    if (this != &otherTree)
+    {
+    // if (root == otherTree.root)
+    // {
+        //Get rid of old tree before copying over otherTree
+        DestroyTree(root);
+        numNodes = otherTree.numNodes;
+        CopyHelper(root, otherTree.root);
+    }
+}
+
+template <class T>
+void TreeT<T>::CopyHelper(Node*& thisTree, Node* otherTree)
+{
+    if (otherTree == nullptr)
+    {
+        thisTree = nullptr;
+        return;
+    }
+    thisTree = new Node;
+    thisTree->value = otherTree->value;
+    CopyHelper(thisTree->left, otherTree->left); // copy left subtree
+    CopyHelper(thisTree->right, otherTree->right); // copy right subtree
+}
+
+template <class T>
+TreeT<T>::~TreeT()
 {
 }
 
@@ -176,10 +207,6 @@ void TreeT<T>::GetPredecessor(Node* curr, T& value)
 {
 }
 
-template <class T>
-void TreeT<T>::CopyHelper(Node*& thisTree, Node* otherTree)
-{
-}
 
 template <class T>
 void TreeT<T>::PlacePreOrder(Node* node)
